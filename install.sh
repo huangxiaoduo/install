@@ -340,9 +340,9 @@ should_install_command_line_tools() {
 
   if version_gt "${macos_version}" "10.13"
   then
-    ! [[ -e "/Library/Developer/CommandLineTools/usr/bin/git" ]]
+    ! [[ -e "/Applications/Xcode.app/Contents/Developer/usr/bin/git" ]]
   else
-    ! [[ -e "/Library/Developer/CommandLineTools/usr/bin/git" ]] ||
+    ! [[ -e "/Applications/Xcode.app/Contents/Developer/usr/bin/git" ]] ||
       ! [[ -e "/usr/include/iconv.h" ]]
   fi
 }
@@ -834,7 +834,7 @@ then
   then
     ohai "Installing ${clt_label}"
     execute_sudo "/usr/sbin/softwareupdate" "-i" "${clt_label}"
-    execute_sudo "/usr/bin/xcode-select" "--switch" "/Library/Developer/CommandLineTools"
+    execute_sudo "/usr/bin/xcode-select" "--switch" "/Applications/Xcode.app/Contents/Developer"
   fi
   execute_sudo "/bin/rm" "-f" "${clt_placeholder}"
 fi
@@ -846,7 +846,7 @@ then
   execute "/usr/bin/xcode-select" "--install"
   echo "Press any key when the installation has completed."
   getc
-  execute_sudo "/usr/bin/xcode-select" "--switch" "/Library/Developer/CommandLineTools"
+  execute_sudo "/usr/bin/xcode-select" "--switch" "/Applications/Xcode.app/Contents/Developer"
 fi
 
 if [[ -n "${HOMEBREW_ON_MACOS-}" ]] && ! output="$(/usr/bin/xcrun clang 2>&1)" && [[ "${output}" == *"license"* ]]
